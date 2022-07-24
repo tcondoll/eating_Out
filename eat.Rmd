@@ -1,6 +1,6 @@
 ---
 title: "Eating Out"
-author: "your name here"
+author: "Taelynn Condoll"
 output: 
   html_document:
     number_sections: true
@@ -32,10 +32,47 @@ mydata <- select(GSS,race,age,eatout)
 mydata <- na.omit(mydata)
 ```
 
+## Methods
+
+Response variable (dine out last week? yes or no) is categorical. Explanatory variable is race (categorical). Inference:chi-squared test and fisher exact test
+
+## descriptive summaries
+
+### Graphical summeries
+
+### Barchart
+
+```{r}
+barchartGC(~race + eatout,data=mydata)
+barchartGC(~race + eatout,data=mydata, type="percent")
 
 
+```
+
+## Numerical summary
+
+```{r}
+table1 <- xtabs(~race + eatout,data=mydata)
+rowPerc(table1)
+colPerc(table1)
+```
+
+This table shows that white people favore eating out.
+
+## Inferential
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+The p val is less then 0.05 therefore we fail to reject the null hypothesis.
 
 
+```{r}
+fisherXY(mydata$race,mydata$eatout)
+```
 
-
+Both tests have a p value of less then 0.05 and therefore we fail to reject the null hypothisis. White people are more likely to eat out than people of color as a whole.
 
